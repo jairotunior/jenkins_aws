@@ -4,10 +4,6 @@ pipeline{
         AWS_DEFAULT_REGION='us-east-1'
         AWS_CREDENTIALS=credentials('aws-credentials')
     }
-    parameters{
-        string(name:'CONFIG_FOLDER', defaultValue:'', description:'')
-        string(name:'REPOSITORY_URL', defaultValue:'', description:'')
-    }
     stages {
         stage('Unit Test'){
             steps{
