@@ -1,0 +1,16 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Simple CloudFormation template for LocalStack
+
+Parameters:
+  BucketName:
+    Type: String
+
+Resources:
+  ExampleBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref BucketName
+
+Outputs:
+  BucketName:
+    Value: !Ref ExampleBucket
