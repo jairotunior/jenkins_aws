@@ -5,7 +5,7 @@ FROM jenkins/jenkins:lts
 USER root
 
 # Update packages and install Python and pip
-RUN apt-get update && apt-get install -y python3 python3-pip gnupg wget build-essential
+RUN apt-get update && apt-get install -y python3 python3-pip python3.13-venv gnupg wget build-essential 
 
 # Switch back to the jenkins user
 USER jenkins
