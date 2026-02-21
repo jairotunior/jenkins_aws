@@ -11,6 +11,11 @@ pipeline{
         BUILD_NUMBER='1.0.0'
     }
     stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
         stage('Unit Test'){
             steps{
                 sh ''
