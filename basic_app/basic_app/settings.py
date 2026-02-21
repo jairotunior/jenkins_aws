@@ -155,6 +155,17 @@ STORAGES = {
             "access_key": os.getenv("AWS_ACCESS_KEY_ID", "test"),
             "secret_key": os.getenv("AWS_SECRET_ACCESS_KEY", "test"),
             "region_name": os.getenv("AWS_REGION", "us-east-1"),
+            "endpoint_url": os.getenv("AWS_ENDPOINT_URL", "http://localhost:4566"),
+        },
+    },
+    "staticfiles": {
+        "BACKEND": "storages.backends.s3.S3Storage",
+        "OPTIONS": {
+            "bucket_name": os.getenv("AWS_STORAGE_BUCKET_NAME", "jenkins_bucket"),
+            "access_key": os.getenv("AWS_ACCESS_KEY_ID", "test"),
+            "secret_key": os.getenv("AWS_SECRET_ACCESS_KEY", "test"),
+            "region_name": os.getenv("AWS_REGION", "us-east-1"),
+            "endpoint_url": os.getenv("AWS_ENDPOINT_URL", "http://localhost:4566"),
         },
     },
 }
