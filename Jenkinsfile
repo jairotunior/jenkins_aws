@@ -24,10 +24,7 @@ pipeline{
         }
         stage('Docker Build'){
             steps{
-                //sh "docker build -t ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER} ."
-                script{
-                    docker.build("${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}")
-                }
+                sh "docker build -t ${env.DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER} -f basic_app/docker/server/Dockerfile basic_app"
             }
         }
         stage('Push Images'){
