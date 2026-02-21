@@ -1,5 +1,8 @@
 pipeline{
     agent any
+    triggers {
+        githubPush()
+    }
     environment{
         AWS_DEFAULT_REGION='us-east-1'
         AWS_ACCESS_KEY_ID = 'test'
