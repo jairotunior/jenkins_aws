@@ -43,6 +43,16 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  jenkins:
+    build:
+      context: .
+      dockerfile: docker/jenkins/Dockerfile
+    ports:
+      - 8080:8080
+    volumes:
+      - jenkins_data:/var/jenkins_home
+
 volumes:
   redis_data:
   postgres_data:
+  jenkins_data:

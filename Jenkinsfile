@@ -14,10 +14,11 @@ pipeline{
         stage('Unit Test'){
             steps{
                 sh '''
-                    cd basic_app
-                    pip install -r requirements/requirements.txt
-                    chmod +x run_unit_test.sh
-                    ./run_unit_test.sh
+                python3 -m venv venv
+                source venv/bin/activate
+                pip install -r basic_app/requirements/requirements.txt
+                chmod +x basic_app/run_unit_test.sh
+                ./basic_app/run_unit_test.sh
                 '''
             }
         }
