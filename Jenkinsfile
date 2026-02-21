@@ -2,7 +2,9 @@ pipeline{
     agent any
     environment{
         AWS_DEFAULT_REGION='us-east-1'
-        AWS_CREDENTIALS=credentials('aws-credentials')
+        AWS_CREDENTIALS=credentials('aws-credentials'),
+        DOCKER_IMAGE_NAME='jenkins/django-app'
+        BUILD_NUMBER='1.0.0'
     }
     stages {
         stage('Unit Test'){
@@ -26,7 +28,7 @@ pipeline{
         stage('Push Images'){
             steps{
                 sh 'docker login -u ${}'
-                sh 'docker push jenkins/django-app:latest'
+                sh "${DOCKER_IMAGE_NAME}:latest"
             }
         }
         stage('Deploy'){
