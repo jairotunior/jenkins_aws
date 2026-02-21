@@ -12,7 +12,10 @@ pipeline{
         }
         stage('Docker Build'){
             steps{
-                sh 'docker build -t jenkins/django-app:latest .'
+                //sh "docker build -t ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER} ."
+                script{
+                    docker.build("${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}")
+                }
             }
         }
         stage('Integration Test'){
