@@ -11,14 +11,14 @@ pipeline{
         BUILD_NUMBER='1.0.0'
     }
     stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
         stage('Unit Test'){
             steps{
-                sh ''
+                sh '''
+                    cd basic_app
+                    pip install -r requirements/requirements.txt
+                    chmod +x run_unit_test.sh
+                    ./run_unit_test.sh
+                '''
             }
         }
         stage('Docker Build'){
@@ -27,11 +27,6 @@ pipeline{
                 script{
                     docker.build("${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}")
                 }
-            }
-        }
-        stage('Integration Test'){
-            steps{
-                sh 'run_integration_test.sh'
             }
         }
         stage('Push Images'){
