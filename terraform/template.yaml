@@ -4,13 +4,22 @@ Description: Simple CloudFormation template for LocalStack
 Parameters:
   BucketName:
     Type: String
+  JenkinsECRRepositoryName:
+    Type: String
 
 Resources:
   ExampleBucket:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Ref BucketName
+  
+  JenkinsECRRepository:
+    Type: AWS::ECR::Repository
+    Properties:
+      RepositoryName: !Ref JenkinsECRRepositoryName
 
 Outputs:
   BucketName:
     Value: !Ref ExampleBucket
+  JenkinsECRRepositoryName:
+    Value: !Ref JenkinsECRRepository

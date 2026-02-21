@@ -4,6 +4,7 @@ resource "aws_cloudformation_stack" "jenkinsiac" {
 
   parameters = {
     BucketName = "jenkins-bucket"
+    JenkinsECRRepositoryName = "ecr-repository"
   }
 
   tags = {
