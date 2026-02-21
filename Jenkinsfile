@@ -14,7 +14,8 @@ pipeline{
         stage('Unit Test'){
             steps{
                 sh '''
-                python3 -m venv venv
+                pip install virtualenv
+                python3 -m virtualenv venv
                 source venv/bin/activate
                 pip install -r basic_app/requirements/requirements.txt
                 chmod +x basic_app/run_unit_test.sh
