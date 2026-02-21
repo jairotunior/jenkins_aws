@@ -3,6 +3,8 @@ pipeline{
     environment{
         AWS_DEFAULT_REGION='us-east-1'
         AWS_CREDENTIALS=credentials('aws-credentials'),
+        AWS_ACCESS_KEY_ID = 'test',
+        AWS_SECRET_ACCESS_KEY = 'test',
         DOCKER_IMAGE_NAME='jenkins/django-app'
         BUILD_NUMBER='1.0.0'
     }
