@@ -18,7 +18,7 @@ pipeline{
                 . venv/bin/activate
                 pip install -r basic_app/requirements/requirements.txt
                 chmod +x basic_app/run_unit_test.sh
-                ./basic_app/run_unit_test.sh
+                cd basic_app && ./run_unit_test.sh
                 '''
             }
         }
