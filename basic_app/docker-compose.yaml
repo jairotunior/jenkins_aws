@@ -1,0 +1,48 @@
+services:
+  basic_app:
+    build:
+      context: .
+      dockerfile: docker/server/Dockerfile
+    ports:
+      - 8000:8000
+    environment:
+      - DATABASE_NAME=basic_app
+      - DATABASE_USER=basic_app
+      - DATABASE_PASSWORD=basic_app
+      - DATABASE_HOST=db
+      - DATABASE_PORT=5432
+      - CELERY_BROKER_URL=redis://redis_broker:6380/0
+      - CELERY_RESULT_BACKEND=redis://redis_broker:6380/0
+      - CELERY_TIMEZONE=America/Bogota
+      - AWS_STORAGE_BUCKET_NAME=jenkins_bucket
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+      - AWS_REGION=us-east-1
+    depends_on:
+      - redis_broker
+      - db
+  
+  redis_broker:
+    image: redis:latest
+    ports:
+      - 6380:6380
+    volumes:
+      - redis_data:/data
+    # If you see "Can't handle RDB format version 13", remove the volume once:
+    #   docker compose down -v
+    # then run docker compose up again.
+
+  db:
+    image: postgres:16-alpine
+    ports:
+      - 5433:5432
+    environment:
+      - POSTGRES_USER=basic_app
+      - POSTGRES_PASSWORD=basic_app
+      - POSTGRES_DB=basic_app
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  redis_data:
+  postgres_data:
