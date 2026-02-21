@@ -15,7 +15,7 @@ pipeline{
             steps{
                 sh '''
                 python3 -m venv venv
-                source venv/bin/activate
+                . venv/bin/activate
                 pip install -r basic_app/requirements/requirements.txt
                 chmod +x basic_app/run_unit_test.sh
                 ./basic_app/run_unit_test.sh
