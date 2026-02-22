@@ -49,10 +49,8 @@ pipeline{
         stage('Docker Build and Push'){
             steps{
                 agent {
-                    docker {
-                        image 'docker:latest'
-                        label 'docker-agent'
-                    }
+                    image 'docker:latest'
+                    label 'docker-agent'
                 }
                 script{
                     
