@@ -24,8 +24,9 @@ pipeline{
         }
         stage('Docker Build'){
             steps{
-                sh 'command -v docker >/dev/null 2>&1 || { echo "ERROR: Docker is not installed or not in PATH on this agent. Install Docker on the agent or run this stage on a node with Docker."; exit 1; }'
-                sh "docker build -t ${env.DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER} -f basic_app/docker/server/Dockerfile basic_app"
+                script{
+                    dockerImage = docker.build("${DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER}")
+                }
             }
         }
         stage('Push Images'){
