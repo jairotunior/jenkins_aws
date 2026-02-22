@@ -61,7 +61,7 @@ pipeline{
             steps{
                 script{
                     docker.withRegistry(
-                        'http://localhost:4566', "ecr:${AWS_DEFAULT_REGION}:aws-credentials"
+                        'http://localhost:4566', "ecr:${AWS_DEFAULT_REGION}:000000000000:repository/ecr-repository"
                     ){
                         def app = docker.image("${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}")
                         app.push("${BUILD_NUMBER}")
