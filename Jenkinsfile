@@ -50,7 +50,7 @@ pipeline{
         stage('Docker Build and Push'){
             steps{
                 script{
-                    docker.build("${env.DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER}", "-f basic_app/docker/server/Dockerfile basic_app")
+                    def app = docker.build("${env.DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER}", "-f basic_app/docker/server/Dockerfile basic_app")
                     // Push and other docker steps run on the same agent (same Docker daemon)
                     // sh 'docker login -u ${}'
                     // docker.image("${env.DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER}").push('latest')
@@ -64,7 +64,7 @@ pipeline{
                         "http://000000000000.dkr.ecr.us-east-1.localhost.localstack.cloud:4566/ecr-repository",
                         "ecr:${AWS_DEFAULT_REGION}:aws-credentials"
                     ){
-                        def app = docker.image("${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}")
+                        // def app = docker.image("${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}")
                         app.push("${BUILD_NUMBER}")
                         app.push("latest")
                     }
