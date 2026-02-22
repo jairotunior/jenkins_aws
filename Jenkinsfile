@@ -47,6 +47,8 @@ pipeline{
             }
         }
         stage('Docker Build and Push'){
+            // Run on an agent that has Docker (label the node 'docker' in Jenkins, or install Docker on the default agent and add label 'docker')
+            agent { label 'docker' }
             steps{
                 script{
                     node{
