@@ -46,17 +46,16 @@ pipeline{
                 '''
             }
         }
-        stage('Docker Build'){
+        stage('Docker Build and Push'){
             steps{
                 script{
-                    dockerImage = docker.build("${DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER}")
+                    node{
+                        docker.build("${env.DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER}", "-f basic_app/docker/server/Dockerfile basic_app")
+                        // Push and other docker steps run on the same agent (same Docker daemon)
+                        // sh 'docker login -u ${}'
+                        // docker.image("${env.DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER}").push('latest')
+                    }
                 }
-            }
-        }
-        stage('Push Images'){
-            steps{
-                sh 'docker login -u ${}'
-                sh "${DOCKER_IMAGE_NAME}:latest"
             }
         }
         stage('Deploy'){
