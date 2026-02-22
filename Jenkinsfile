@@ -48,12 +48,7 @@ pipeline{
         }
         stage('Docker Build and Push'){
             steps{
-                agent {
-                    image 'docker:latest'
-                    label 'docker-agent'
-                }
                 script{
-                    
                     docker.build("${env.DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER}", "-f basic_app/docker/server/Dockerfile basic_app")
                     // Push and other docker steps run on the same agent (same Docker daemon)
                     // sh 'docker login -u ${}'
