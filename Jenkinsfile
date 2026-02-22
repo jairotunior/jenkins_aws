@@ -50,19 +50,25 @@ pipeline{
             // Run on an agent that has Docker (label the node 'docker' in Jenkins, or install Docker on the default agent and add label 'docker')
             agent { label 'docker' }
             steps{
-                script{
-                    node{
-                        docker.build("${env.DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER}", "-f basic_app/docker/server/Dockerfile basic_app")
-                        // Push and other docker steps run on the same agent (same Docker daemon)
-                        // sh 'docker login -u ${}'
-                        // docker.image("${env.DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER}").push('latest')
-                    }
+                node{
+                    docker.build("${env.DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER}", "-f basic_app/docker/server/Dockerfile basic_app")
+                    // Push and other docker steps run on the same agent (same Docker daemon)
+                    // sh 'docker login -u ${}'
+                    // docker.image("${env.DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER}").push('latest')
                 }
             }
         }
-        stage('Deploy'){
+        stage('Push Image to AWS'){
             steps{
-                sh ''
+                script{
+                    docker.withRegistry(
+                        'https://localhost:4566', "ecr:${AWS_DEFAULT_REGION}:aws-credentials"
+                    ){
+                        def app = docker.image("${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}")
+                        app.push("${BUILD_NUMBER}")
+                        app.push("latest")
+                    }
+                }
             }
         }
     }
