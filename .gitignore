@@ -1,4 +1,4 @@
-*.pyc
+/basic_app/*.pyc
 
 terraform/terraform.tfstate
 terraform/.terraform/*
