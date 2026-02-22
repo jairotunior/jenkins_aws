@@ -14,7 +14,7 @@ services:
       - CELERY_BROKER_URL=redis://redis_broker:6380/0
       - CELERY_RESULT_BACKEND=redis://redis_broker:6380/0
       - CELERY_TIMEZONE=America/Bogota
-      - AWS_STORAGE_BUCKET_NAME=jenkins_bucket
+      - AWS_STORAGE_BUCKET_NAME=jenkins-bucket
       - AWS_ACCESS_KEY_ID=test
       - AWS_SECRET_ACCESS_KEY=test
       - AWS_REGION=us-east-1
@@ -39,15 +39,6 @@ services:
       - POSTGRES_DB=basic_app
     volumes:
       - postgres_data:/var/lib/postgresql/data
-
-  jenkins:
-    build:
-      context: .
-      dockerfile: docker/jenkins/Dockerfile
-    ports:
-      - 8080:8080
-    volumes:
-      - jenkins_data:/var/jenkins_home
 
 volumes:
   redis_data:

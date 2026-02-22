@@ -151,7 +151,7 @@ STORAGES = {
     "default": {
         "BACKEND": "storages.backends.s3.S3Storage",
         "OPTIONS": {
-            "bucket_name": os.getenv("AWS_STORAGE_BUCKET_NAME", "jenkins_bucket"),
+            "bucket_name": os.getenv("AWS_STORAGE_BUCKET_NAME", "jenkins-bucket"),
             "access_key": os.getenv("AWS_ACCESS_KEY_ID", "test"),
             "secret_key": os.getenv("AWS_SECRET_ACCESS_KEY", "test"),
             "region_name": os.getenv("AWS_REGION", "us-east-1"),
@@ -161,7 +161,7 @@ STORAGES = {
     "staticfiles": {
         "BACKEND": "storages.backends.s3.S3Storage",
         "OPTIONS": {
-            "bucket_name": os.getenv("AWS_STORAGE_BUCKET_NAME", "jenkins_bucket"),
+            "bucket_name": os.getenv("AWS_STORAGE_BUCKET_NAME", "jenkins-bucket"),
             "access_key": os.getenv("AWS_ACCESS_KEY_ID", "test"),
             "secret_key": os.getenv("AWS_SECRET_ACCESS_KEY", "test"),
             "region_name": os.getenv("AWS_REGION", "us-east-1"),
