@@ -31,7 +31,7 @@ pipeline{
                 # - E722: Do not use bare except
                 # - E721: Use is and is not for type comparisons, or isinstance() for isinstance checks
                 
-                ruff check --select=F,E,W,I --force-exclude --ignore=F403,F405,E722,E721 .
+                ruff check .
                 '''
             }
         }
