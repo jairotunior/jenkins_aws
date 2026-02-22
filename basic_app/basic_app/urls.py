@@ -14,6 +14,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path, re_path, include
 from apps.base.urls import api_urls as base_api_urls
@@ -30,6 +31,6 @@ apps_urls = [
 ]
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
     re_path(r"^api/(?P<version>(v1|v2))/", include(apps_urls)),
 ]
