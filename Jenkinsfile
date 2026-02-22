@@ -18,7 +18,7 @@ pipeline{
                 . venv/bin/activate
                 pip install -r basic_app/requirements/linting.txt
                 # Check for formatting issues that do not break linting rules
-                ruff format --check --force-exclude
+                - ruff format --check --force-exclude
 
                 # * --select=F,E,W,I                    => Only include rules related to formatting
                 # * --force-exclude                     => exclude folders/files configured in `ruff.toml`
@@ -30,7 +30,7 @@ pipeline{
                 # - E722: Do not use bare except
                 # - E721: Use is and is not for type comparisons, or isinstance() for isinstance checks
                 
-                ruff check --select=F,E,W,I --force-exclude --ignore=F403,F405,E722,E721 .
+                - ruff check --select=F,E,W,I --force-exclude --ignore=F403,F405,E722,E721 .
                 '''
             }
         }
