@@ -59,6 +59,7 @@ pipeline{
         }
         stage('Push Image to AWS'){
             steps{
+                sh "aws --endpoint-url=http://localhost:4566 s3 ls"
                 script{
                     /*
                     docker.withRegistry(
@@ -70,7 +71,7 @@ pipeline{
                         app.push("latest")
                     }
                     */
-                    aws --endpoint-url=http://localhost:4566 s3 ls
+                    
                 }
             }
         }
