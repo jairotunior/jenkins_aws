@@ -60,8 +60,9 @@ pipeline{
         stage('Push Image to AWS'){
             steps{
                 sh "aws --endpoint-url=http://localhost:4566 s3 ls"
+                /*
                 script{
-                    /*
+                    
                     docker.withRegistry(
                         "http://000000000000.dkr.ecr.us-east-1.localhost.localstack.cloud:4566/ecr-repository",
                         "ecr:${AWS_DEFAULT_REGION}:aws-credentials-id"
@@ -70,9 +71,8 @@ pipeline{
                         app.push("${BUILD_NUMBER}")
                         app.push("latest")
                     }
-                    */
-                    
                 }
+                */
             }
         }
     }
