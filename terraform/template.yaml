@@ -12,14 +12,62 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Ref BucketName
-  
+
   JenkinsECRRepository:
     Type: AWS::ECR::Repository
     Properties:
       RepositoryName: !Ref JenkinsECRRepositoryName
+
+  # IAM user with access to the ECR repository (push/pull)
+  JenkinsECRAccessUser:
+    Type: AWS::IAM::User
+    Properties:
+      UserName: jenkins-ecr-access
+
+  JenkinsECRAccessPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: JenkinsECRAccess
+      Users:
+        - !Ref JenkinsECRAccessUser
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          # Required for docker login (account-level)
+          - Sid: GetAuthorizationToken
+            Effect: Allow
+            Action:
+              - ecr:GetAuthorizationToken
+            Resource: "*"
+          # Push and pull on the Jenkins ECR repository
+          - Sid: RepositoryAccess
+            Effect: Allow
+            Action:
+              - ecr:BatchCheckLayerAvailability
+              - ecr:GetDownloadUrlForLayer
+              - ecr:BatchGetImage
+              - ecr:PutImage
+              - ecr:InitiateLayerUpload
+              - ecr:UploadLayerPart
+              - ecr:CompleteLayerUpload
+            Resource: !GetAtt JenkinsECRRepository.Arn
+
+  JenkinsECRAccessUserKeys:
+    Type: AWS::IAM::AccessKey
+    Properties:
+      UserName: !Ref JenkinsECRAccessUser
 
 Outputs:
   BucketName:
     Value: !Ref ExampleBucket
   JenkinsECRRepositoryName:
     Value: !Ref JenkinsECRRepository
+  JenkinsECRAccessUserArn:
+    Value: !GetAtt JenkinsECRAccessUser.Arn
+    Description: IAM user ARN with ECR access
+  JenkinsECRAccessKeyId:
+    Value: !Ref JenkinsECRAccessUserKeys
+    Description: Access key ID for ECR access (use in CI/Jenkins)
+  JenkinsECRRepositoryArn:
+    Value: !GetAtt JenkinsECRRepository.Arn
+    Description: ECR repository ARN
