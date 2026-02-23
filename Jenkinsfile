@@ -59,7 +59,7 @@ pipeline{
             steps{
                 script{
                     docker.withRegistry(
-                        "http://000000000000.dkr.ecr.us-east-1.localhost.localstack.cloud:4566",
+                        "http://000000000000.dkr.ecr.us-east-1.localhost.localstack.cloud:4566/ecr-repository",
                         "ecr:${AWS_DEFAULT_REGION}:aws-credentials-id"
                     ){
                         // def app = docker.image("${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}")
