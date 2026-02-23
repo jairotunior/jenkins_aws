@@ -5,6 +5,8 @@ pipeline{
     }
     environment{
         AWS_DEFAULT_REGION='us-east-1'
+        AWS_ACCESS_KEY_ID='test'
+        AWS_SECRET_ACCESS_KEY='test'
         AWS_CREDENTIALS = credentials('aws-credentials')
         DOCKER_IMAGE_NAME='jenkins/django-app'
         BUILD_NUMBER='1.0.0'
@@ -58,14 +60,17 @@ pipeline{
         stage('Push Image to AWS'){
             steps{
                 script{
+                    /*
                     docker.withRegistry(
-                        "https://000000000000.dkr.ecr.us-east-1.localhost.localstack.cloud:4566/ecr-repository",
+                        "http://000000000000.dkr.ecr.us-east-1.localhost.localstack.cloud:4566/ecr-repository",
                         "ecr:${AWS_DEFAULT_REGION}:aws-credentials-id"
                     ){
                         // def app = docker.image("${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}")
                         app.push("${BUILD_NUMBER}")
                         app.push("latest")
                     }
+                    */
+                    aws --endpoint-url=http://localhost:4566 s3 ls
                 }
             }
         }
